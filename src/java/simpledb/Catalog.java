@@ -22,21 +22,33 @@ public class Catalog {
      * Constructor.
      * Creates a new, empty catalog.
      */
+	
+	private Hashtable<Integer, DbFile> idDict;
+	private Hashtable<String, DbFile> nameDict;
+	private HashMap<Integer, String> idNameDict;
+	private HashMap<Integer, String> pKeyDict;
+	
     public Catalog() {
-        // some code goes here
+        idDict = new Hashtable<Integer, DbFile>();
+        nameDict = new Hashtable<String, DbFile>();
+        pKeyDict = new HashMap<Integer, String>();
+        idNameDict = new HashMap<Integer, String>();
     }
 
     /**
      * Add a new table to the catalog.
      * This table's contents are stored in the specified DbFile.
-     * @param file the contents of the table to add;  file.getId() is the identfier of
+     * @param file the contents of the table to add;  file.getId() is the identifier of
      *    this file/tupledesc param for the calls getTupleDesc and getFile
      * @param name the name of the table -- may be an empty string.  May not be null.  If a name
      * conflict exists, use the last table to be added as the table for a given name.
      * @param pkeyField the name of the primary key field
      */
     public void addTable(DbFile file, String name, String pkeyField) {
-        // some code goes here
+        this.idDict.put(file.getId(), file);
+        this.nameDict.put(name, file);
+        this.pKeyDict.put(file.getId(), pkeyField);
+        this.idNameDict.put(file.getId(), name);
     }
 
     public void addTable(DbFile file, String name) {
@@ -47,7 +59,7 @@ public class Catalog {
      * Add a new table to the catalog.
      * This table has tuples formatted using the specified TupleDesc and its
      * contents are stored in the specified DbFile.
-     * @param file the contents of the table to add;  file.getId() is the identfier of
+     * @param file the contents of the table to add;  file.getId() is the identifier of
      *    this file/tupledesc param for the calls getTupleDesc and getFile
      */
     public void addTable(DbFile file) {
@@ -59,8 +71,7 @@ public class Catalog {
      * @throws NoSuchElementException if the table doesn't exist
      */
     public int getTableId(String name) throws NoSuchElementException {
-        // some code goes here
-        return 0;
+        return nameDict.get(name).getId();
     }
 
     /**
@@ -70,8 +81,7 @@ public class Catalog {
      * @throws NoSuchElementException if the table doesn't exist
      */
     public TupleDesc getTupleDesc(int tableid) throws NoSuchElementException {
-        // some code goes here
-        return null;
+        return idDict.get(tableid).getTupleDesc();
     }
 
     /**
@@ -81,28 +91,41 @@ public class Catalog {
      *     function passed to addTable
      */
     public DbFile getDatabaseFile(int tableid) throws NoSuchElementException {
-        // some code goes here
-        return null;
+        return idDict.get(tableid);
     }
 
     public String getPrimaryKey(int tableid) {
-        // some code goes here
-        return null;
+        return pKeyDict.get(tableid);
     }
 
     public Iterator<Integer> tableIdIterator() {
-        // some code goes here
-        return null;
+    	Iterator<Integer> iter = new Iterator<Integer>() {
+
+    		private int currentIndex = 0;
+    		private Enumeration<Integer> internalIter = idDict.keys();
+
+    		public boolean hasNext() {
+    			return internalIter.hasMoreElements();
+    		}
+
+    		public Integer next() {
+    			return internalIter.nextElement();
+    		}
+    	};
+
+    	return iter;
     }
 
     public String getTableName(int id) {
-        // some code goes here
-        return null;
+        return idNameDict.get(id);
     }
     
     /** Delete all tables from the catalog */
     public void clear() {
-        // some code goes here
+        idDict.clear();
+        nameDict.clear();
+        idNameDict.clear();
+        pKeyDict.clear();
     }
     
     /**

@@ -2,6 +2,7 @@ package simpledb;
 
 import java.io.*;
 
+import java.util.Hashtable;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -29,13 +30,21 @@ public class BufferPool {
     /** TODO for Lab 4: create your private Lock Manager class. 
 	Be sure to instantiate it in the constructor. */
 
+    
+    //private Page[] pool;
+    private Hashtable<Integer, Page> deadPool;
+    private int numPages = DEFAULT_PAGES;
+    
     /**
      * Creates a BufferPool that caches up to numPages pages.
      *
      * @param numPages maximum number of pages in this buffer pool.
      */
     public BufferPool(int numPages) {
-        // some code goes here
+        // = new Page[50];
+    	this.deadPool = new Hashtable<Integer, Page>(50);
+    	this.numPages = numPages;
+    	
     }
     
     public static int getPageSize() {
@@ -66,7 +75,24 @@ public class BufferPool {
      */
     public  Page getPage(TransactionId tid, PageId pid, Permissions perm)
         throws TransactionAbortedException, DbException {
-        // some code goes here
+        
+    	if (!holdsLock(tid, pid)) {
+    		throw new TransactionAbortedException();
+    	}
+    	
+    	if(this.deadPool.containsKey(pid)){
+    		return this.deadPool.get(pid);	
+    	} else {
+    		if (this.deadPool.size() >= this.numPages) {
+    			throw new DbException("Too many pages!");
+    		} else {
+    			this.deadPool.put(pid, this.catalog.getDatabaseFile(pid.getTableId()).readPage(pid));
+    		}
+    	}
+    	
+    	
+    	
+    	
         return null;
     }
 
