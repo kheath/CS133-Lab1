@@ -32,7 +32,7 @@ public class BufferPool {
 
     
     //private Page[] pool;
-    private Hashtable<Integer, Page> deadPool;
+    private Hashtable<PageId, Page> deadPool;
     private int numPages = DEFAULT_PAGES;
     
     /**
@@ -42,7 +42,7 @@ public class BufferPool {
      */
     public BufferPool(int numPages) {
         // = new Page[50];
-    	this.deadPool = new Hashtable<Integer, Page>(50);
+    	this.deadPool = new Hashtable<PageId, Page>(50);
     	this.numPages = numPages;
     	
     }
@@ -86,7 +86,7 @@ public class BufferPool {
     		if (this.deadPool.size() >= this.numPages) {
     			throw new DbException("Too many pages!");
     		} else {
-    			this.deadPool.put(pid, this.catalog.getDatabaseFile(pid.getTableId()).readPage(pid));
+    			this.deadPool.put(pid, Database.getCatalog().getDatabaseFile(pid.getTableId()).readPage(pid));
     		}
     	}
     	
