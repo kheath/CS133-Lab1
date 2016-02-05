@@ -37,8 +37,8 @@ public class HeapPageId implements PageId {
      * @see BufferPool
      */
     public int hashCode() {
-        int lengthOfPgNm = Math.floor(Math.log10(pageNum) + 1);
-        return pageNum + Math.pow(10, lengthOfPgNm) * tabId;
+        int lengthOfPgNm = (int) Math.floor(Math.log10(pageNum) + 1);
+        return (int) (pageNum + Math.pow(10, lengthOfPgNm) * tabId);
     }
 
     /**
@@ -49,7 +49,8 @@ public class HeapPageId implements PageId {
      *   ids are the same)
      */
     public boolean equals(Object o) {
-        return ( pageNum == o.pageNum && tabId == o.tabId);
+    	HeapPageId p = (HeapPageId) o;
+        return ( pageNum == p.pageNumber() && tabId == p.getTableId());
     }
 
     /**
