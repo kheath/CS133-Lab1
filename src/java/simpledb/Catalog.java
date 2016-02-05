@@ -1,3 +1,5 @@
+// Authors: Kevin Heath & Melissa Galonsky
+
 package simpledb;
 
 import java.io.BufferedReader;
