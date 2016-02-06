@@ -66,9 +66,7 @@ public class HeapPage implements Page {
         @return the number of tuples on this page
     */
     private int getNumTuples() {        
-        // some code goes here
-        return 0;
-
+        return (int) (Math.floor(BufferPool.getPageSize()*8)/(td.getSize() * 8 + 1));
     }
 
     /**
@@ -76,10 +74,7 @@ public class HeapPage implements Page {
      * @return the number of bytes in the header of a page in a HeapFile with each tuple occupying tupleSize bytes
      */
     private int getHeaderSize() {        
-        
-        // some code goes here
-        return 0;
-                 
+        return (int) (Math.ceil(this.numSlots/8));
     }
     
     /** Return a view of this page before it was modified
