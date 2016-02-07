@@ -15,15 +15,22 @@ import java.util.*;
  */
 public class HeapFile implements DbFile {
 
+	
+	private File f;
+	private TupleDesc td;
+	private RandomAccessFile fIO;
     /**
      * Constructs a heap file backed by the specified file.
      * 
      * @param f
      *            the file that stores the on-disk backing store for this heap
      *            file.
+     * @throws FileNotFoundException 
      */
-    public HeapFile(File f, TupleDesc td) {
-        // some code goes here
+    public HeapFile(File f, TupleDesc td) throws FileNotFoundException {
+        this.f = f;
+        this.td = td;
+        fIO = new RandomAccessFile(f, "rw");
     }
 
     /**
@@ -32,8 +39,7 @@ public class HeapFile implements DbFile {
      * @return the File backing this HeapFile on disk.
      */
     public File getFile() {
-        // some code goes here
-        return null;
+        return f;
     }
 
     /**
@@ -46,8 +52,7 @@ public class HeapFile implements DbFile {
      * @return an ID uniquely identifying this HeapFile.
      */
     public int getId() {
-        // some code goes here
-        throw new UnsupportedOperationException("implement this");
+        return f.getAbsoluteFile().hashCode();
     }
 
     /**
@@ -56,14 +61,18 @@ public class HeapFile implements DbFile {
      * @return TupleDesc of this DbFile.
      */
     public TupleDesc getTupleDesc() {
-        // some code goes here
-        throw new UnsupportedOperationException("implement this");
+        return td;
     }
 
     // see DbFile.java for javadocs
-    public Page readPage(PageId pid) {
-        // some code goes here
-        return null;
+    public Page readPage(PageId pid) throws IOException {
+    	int offset = pid.pageNumber();
+    	fIO.seek(offset*BufferPool.getPageSize());
+    	byte[] ourArray = new byte[BufferPool.getPageSize()];
+    	fIO.readFully(ourArray);
+    	Page retVal = new HeapPage((HeapPageId) pid, ourArray);
+    	return retVal;
+    	
     }
 
     // see DbFile.java for javadocs
