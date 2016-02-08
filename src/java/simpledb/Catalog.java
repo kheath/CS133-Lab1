@@ -43,10 +43,14 @@ public class Catalog {
      * @param file the contents of the table to add;  file.getId() is the identifier of
      *    this file/tupledesc param for the calls getTupleDesc and getFile
      * @param name the name of the table -- may be an empty string.  May not be null.  If a name
-     * conflict exists, use the last table to be added as the table for a given name.
+     * conflict exists, use the last table to be added as the table for a given name. - Actually
+     * means: "Update file with new name bruh"
      * @param pkeyField the name of the primary key field
      */
     public void addTable(DbFile file, String name, String pkeyField) {
+    	
+    	// If file is already in the hashtable, change the name for the same file
+    	
         this.idDict.put(file.getId(), file);
         this.nameDict.put(name, file);
         this.pKeyDict.put(file.getId(), pkeyField);
