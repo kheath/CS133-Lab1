@@ -85,8 +85,7 @@ public class HeapFile implements DbFile {
      * Returns the number of pages in this HeapFile.
      */
     public int numPages() {
-        // some code goes here
-        return 0;
+        return (int) (this.f.length()/BufferPool.getPageSize());
     }
 
     // see DbFile.java for javadocs
