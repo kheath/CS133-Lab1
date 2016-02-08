@@ -74,7 +74,12 @@ public class Catalog {
      */
     public int getTableId(String name) throws NoSuchElementException {
     	System.out.println(name);
-    	System.out.println(nameDict.keySet().iterator());
+    	Iterator<String> iter = nameDict.keySet().iterator();
+    	while(iter.hasNext()) {
+    		System.out.println(iter.next());
+    	}
+    	
+//    	System.out.println(nameDict.keySet().iterator());
     	if (nameDict.contains(name) && !(name == null)){
     		return nameDict.get(name).getId();
     	} else {
