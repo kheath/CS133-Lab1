@@ -88,7 +88,7 @@ public class Catalog {
     	}
     	
 //    	System.out.println(nameDict.keySet().iterator());
-    	if (nameDict.containsKey(name) && !(name == null)){
+    	if (!(name == null) && nameDict.containsKey(name)){
     		return nameDict.get(name).getId();
     	} else {
     		throw new NoSuchElementException();
