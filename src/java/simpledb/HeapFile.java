@@ -84,9 +84,15 @@ public class HeapFile implements DbFile {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	Page retVal = new HeapPage((HeapPageId) pid, ourArray);
-    	return retVal;
-    	
+    	Page retVal;
+		try {
+			retVal = new HeapPage((HeapPageId) pid, ourArray);
+			return retVal;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
     }
 
     // see DbFile.java for javadocs
