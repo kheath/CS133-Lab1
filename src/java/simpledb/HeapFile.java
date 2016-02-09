@@ -126,9 +126,26 @@ public class HeapFile implements DbFile {
 
     // see DbFile.java for javadocs
     public DbFileIterator iterator(TransactionId tid) {
-        // some code goes here
-        return null;
+
+//    	Iterator<TransactionId> iter = new Iterator<TransactionId>() {
+//
+//    		private int currentIndex = 0;
+//    		private Page currentPage = this.readPage(pid);
+//
+//    		public boolean hasNext() {
+//    			return Database.getCatalog().getDatabaseFile(currentIndex)
+//    		}
+//
+//    		public Integer next() {
+//    			return BufferPool.
+//    		}
+//    	};
+//    	return iter;
+//    }
+//    	// How do we get page ids?
+    	return null;
     }
+    
 
 }
 
