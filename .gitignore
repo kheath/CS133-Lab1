@@ -9,7 +9,7 @@
 *.class
 
 # generated files
-bin/
+bin/simpledb/
 
 
 # Local configuration file (sdk path, etc)
