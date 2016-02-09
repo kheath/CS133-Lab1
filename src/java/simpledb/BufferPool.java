@@ -5,6 +5,7 @@ package simpledb;
 import java.io.*;
 
 import java.util.Hashtable;
+import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -74,9 +75,11 @@ public class BufferPool {
      * @param tid the ID of the transaction requesting the page
      * @param pid the ID of the requested page
      * @param perm the requested permissions on the page
+     * @throws IOException 
+     * @throws NoSuchElementException 
      */
     public  Page getPage(TransactionId tid, PageId pid, Permissions perm)
-        throws TransactionAbortedException, DbException {
+        throws TransactionAbortedException, DbException, NoSuchElementException, IOException {
         
     	if (!holdsLock(tid, pid)) {
     		throw new TransactionAbortedException();
