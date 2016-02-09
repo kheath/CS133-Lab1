@@ -25,12 +25,16 @@ public class HeapFile implements DbFile {
      * @param f
      *            the file that stores the on-disk backing store for this heap
      *            file.
-     * @throws FileNotFoundException 
      */
-    public HeapFile(File f, TupleDesc td) throws FileNotFoundException {
+    public HeapFile(File f, TupleDesc td) {
         this.f = f;
         this.td = td;
-        fIO = new RandomAccessFile(f, "rw");
+        try {
+			fIO = new RandomAccessFile(f, "rw");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
