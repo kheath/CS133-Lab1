@@ -38,7 +38,7 @@ public class HeapPage implements Page {
      * @see Catalog#getTupleDesc
      * @see BufferPool#getPageSize()
      */
-    public HeapPage(HeapPageId id, byte[] data) throws IOException {
+    public HeapPage(HeapPageId id, byte[] data) {
         this.pid = id;
         this.td = Database.getCatalog().getTupleDesc(id.getTableId());
         this.numSlots = getNumTuples();
@@ -47,7 +47,12 @@ public class HeapPage implements Page {
         // allocate and read the header slots of this page
         header = new byte[getHeaderSize()];
         for (int i=0; i<header.length; i++)
-            header[i] = dis.readByte();
+			try {
+				header[i] = dis.readByte();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         
         tuples = new Tuple[numSlots];
         try{
@@ -57,7 +62,12 @@ public class HeapPage implements Page {
         }catch(NoSuchElementException e){
             e.printStackTrace();
         }
-        dis.close();
+        try {
+			dis.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         setBeforeImage();
     }

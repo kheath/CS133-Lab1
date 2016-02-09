@@ -69,11 +69,21 @@ public class HeapFile implements DbFile {
     }
 
     // see DbFile.java for javadocs
-    public Page readPage(PageId pid) throws IOException {
+    public Page readPage(PageId pid) {
     	int offset = pid.pageNumber();
-    	fIO.seek(offset*BufferPool.getPageSize());
+    	try {
+			fIO.seek(offset*BufferPool.getPageSize());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	byte[] ourArray = new byte[BufferPool.getPageSize()];
-    	fIO.readFully(ourArray);
+    	try {
+			fIO.readFully(ourArray);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	Page retVal = new HeapPage((HeapPageId) pid, ourArray);
     	return retVal;
     	
