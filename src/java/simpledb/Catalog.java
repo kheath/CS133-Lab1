@@ -50,6 +50,9 @@ public class Catalog {
     public void addTable(DbFile file, String name, String pkeyField) {
     	
     	// If file is already in the hashtable, change the name for the same file
+    	if(this.idNameDict.containsKey(file)) {
+    		this.nameDict.remove(name);
+    	}
     	
         this.idDict.put(file.getId(), file);
         this.nameDict.put(name, file);
