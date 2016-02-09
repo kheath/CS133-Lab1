@@ -97,6 +97,7 @@ public class HeapFileReadTest extends SimpleDbTestBase {
             it.next();
             fail("expected exception");
         } catch (NoSuchElementException e) {
+        	e.printStackTrace();
         }
 
         it.open();
