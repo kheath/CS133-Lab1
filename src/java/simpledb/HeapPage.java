@@ -275,14 +275,13 @@ public class HeapPage implements Page {
      * Returns the number of empty slots on this page.
      */
     public int getNumEmptySlots() {
-        
+        int mask = 1;
     	int count = 0;
     	for(int j = 0; j<this.getHeaderSize(); j++) {
     		System.out.println("Header:");
     		System.out.println(header[j]);
     		for(int i = 0; i<8; i++) {
-    			byte mask = (byte) Math.pow(2, i);
-    			count += (this.header[j] & mask)/(Math.pow(2, i));
+    			count += ((this.header[j] >> i) & mask);
     			System.out.println(count);
     		}
     		
