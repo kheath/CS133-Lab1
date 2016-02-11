@@ -144,12 +144,23 @@ public class HeapFile implements DbFile {
     			this.isClosed = false;
     			this.currentId = new HeapPageId(getId(), 0);
     			this.currentPageNum = 0;
-    			try {
+    			
+				try {
 					this.currentPage = (HeapPage) Database.getBufferPool().getPage(tid, currentId, Permissions.READ_ONLY);
-				} catch (NoSuchElementException | TransactionAbortedException
-						| DbException | IOException e) {
+				} catch (NoSuchElementException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (TransactionAbortedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (DbException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
     			this.currentIterator = this.currentPage.iterator();
     		}
     		
