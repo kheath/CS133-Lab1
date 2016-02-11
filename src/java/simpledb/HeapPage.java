@@ -278,15 +278,11 @@ public class HeapPage implements Page {
         int mask = 1;
     	int count = 0;
     	for(int j = 0; j<this.getHeaderSize(); j++) {
-    		System.out.println("Header:");
-    		System.out.println(header[j]);
     		for(int i = 0; i<8; i++) {
     			count += ((this.header[j] >> i) & mask);
-    			System.out.println(count);
     		}
     		
     	}
-    	System.out.println(numSlots);
         return numSlots-count;
     }
 
