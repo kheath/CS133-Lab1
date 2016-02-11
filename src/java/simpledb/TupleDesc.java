@@ -171,6 +171,9 @@ public class TupleDesc implements Serializable {
     	while(iter.hasNext()){
     		TDItem temp = iter.next();
     		System.out.println(temp);
+    		if(temp.fieldName == null) {
+    			throw new NoSuchElementException();
+    		}
     		if(temp.fieldName.equals(name)){
     			return i;
     		}
