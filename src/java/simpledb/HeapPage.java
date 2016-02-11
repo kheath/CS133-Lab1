@@ -280,10 +280,10 @@ public class HeapPage implements Page {
     	for(int j = 0; j<this.header.length; j++) {
     		for(int i = 0; i<8; i++) {
     			byte mask = (byte) Math.pow(2, i);
-    			count += (~this.header[j] & mask)/(Math.pow(2, i));
+    			count += (this.header[j] & mask)/(Math.pow(2, i));
     		}
     	}
-        return count - (8 - (numSlots % 8));
+        return numSlots-count;
     }
 
     /**
