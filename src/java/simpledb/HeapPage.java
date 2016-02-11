@@ -315,7 +315,13 @@ public class HeapPage implements Page {
     		private int currentIndex = 0;
 
     		public boolean hasNext() {
-    			return this.currentIndex < tuples.length;
+    			int indexCopy = currentIndex;
+    			for (;indexCopy < tuples.length; indexCopy++) {
+    				if (isSlotUsed(indexCopy)) {
+    					return true;
+    				}
+    			}
+    			return false;
     		}
 
     		public Tuple next() {
