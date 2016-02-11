@@ -283,7 +283,7 @@ public class HeapPage implements Page {
     			count += (this.header[j] & mask)/(Math.pow(2, i));
     		}
     	}
-    	System.out.println(Integer(numSlots).toString());
+    	System.out.println(numSlots);
         return numSlots-count;
     }
 
