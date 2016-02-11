@@ -92,13 +92,9 @@ public class BufferPool {
     			throw new DbException("Too many pages!");
     		} else {
     			this.deadPool.put(pid, Database.getCatalog().getDatabaseFile(pid.getTableId()).readPage(pid));
+    			return this.deadPool.get(pid);
     		}
     	}
-    	
-    	
-    	
-    	
-        return null;
     }
 
     /**
