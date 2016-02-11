@@ -133,7 +133,7 @@ public class TupleDesc implements Serializable {
      *             if i is not a valid field reference.
      */
     public String getFieldName(int i) throws NoSuchElementException {
-    	if(i > numFields()) {
+    	if(i > numFields()-1) {
     		throw new NoSuchElementException();
     	}
         return fields[i].fieldName;
