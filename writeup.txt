@@ -1,0 +1,4 @@
+Melissa Galonsky and Kevin Heath
+
+Our design decisions were minimal.  In Catalog, we created 2 Hashtables and 2 Hashmaps to allow easy access to any of the data we need to access in implementing the api.
+
