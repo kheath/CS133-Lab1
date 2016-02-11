@@ -320,8 +320,8 @@ public class HeapPage implements Page {
 
     		public Tuple next() {
     			while(hasNext()) {
-    				if (isSlotUsed(currentIndex++)) {
-    					return tuples[this.currentIndex];
+    				if (isSlotUsed(currentIndex)) {
+    					return tuples[this.currentIndex++];
     				}
     			}
     			throw new UnsupportedOperationException();
