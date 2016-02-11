@@ -296,8 +296,8 @@ public class HeapPage implements Page {
      */
     public boolean isSlotUsed(int i) {
         System.out.println(i);
-    	byte mask = (byte) (1 << (i%8));
-    	boolean used = (this.header[i/8] & mask)> 0;
+    	byte mask = 1;
+    	boolean used = ((this.header[i/8] >> (i % 8)) & mask)> 0;
     	System.out.println(used);
     	return used;
     			    
