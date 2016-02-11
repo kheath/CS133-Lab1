@@ -44,7 +44,7 @@ public class SeqScan implements DbIterator {
      *       be the actual name of the table in the catalog of the database
      * */
     public String getTableName() {
-        return null;
+        return Database.getCatalog().getTableName(tableid);
     }
     
     /**
@@ -94,8 +94,9 @@ public class SeqScan implements DbIterator {
      */
     public TupleDesc getTupleDesc() {
         // some code goes here
-    	
-    	return Database.getCatalog().getTupleDesc(this.tableid);
+    	TupleDesc retval = Database.getCatalog().getTupleDesc(this.tableid);
+    	assert(retval != null);
+    	return retval;
     }
 
     public boolean hasNext() throws TransactionAbortedException, DbException {
