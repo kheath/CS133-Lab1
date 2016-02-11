@@ -281,6 +281,7 @@ public class HeapPage implements Page {
     		for(int i = 0; i<8; i++) {
     			byte mask = (byte) Math.pow(2, i);
     			count += (this.header[j] & mask)/(Math.pow(2, i));
+    			System.out.println(count);
     		}
     	}
     	System.out.println(numSlots);
