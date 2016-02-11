@@ -45,7 +45,7 @@ public class BufferPool {
      */
     public BufferPool(int numPages) {
         // = new Page[50];
-    	this.deadPool = new Hashtable<PageId, Page>(50);
+    	this.deadPool = new Hashtable<PageId, Page>(numPages);
     	this.numPages = numPages;
     	
     }
