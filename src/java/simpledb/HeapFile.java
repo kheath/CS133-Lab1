@@ -141,12 +141,16 @@ public class HeapFile implements DbFile {
     		}
     		
     		public void open() {
+    			boolean gotPage = false;
+    			
     			this.isClosed = false;
     			this.currentId = new HeapPageId(getId(), 0);
     			this.currentPageNum = 0;
     			
 				try {
 					this.currentPage = (HeapPage) Database.getBufferPool().getPage(tid, currentId, Permissions.READ_ONLY);
+					gotPage = true;
+					System.out.println("Got page");
 				} catch (NoSuchElementException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
