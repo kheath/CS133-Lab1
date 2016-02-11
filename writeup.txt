@@ -2,3 +2,8 @@ Melissa Galonsky and Kevin Heath
 
 Our design decisions were minimal.  In Catalog, we created 2 Hashtables and 2 Hashmaps to allow easy access to any of the data we need to access in implementing the api.
 
+We did not make any changes to the api.
+
+We pair programmed in the style recquired by CS 70, with one of us programming and the other guiding at any one time, splitting the time and implementation rather evenly.  While we don't remember exactly who wrote what, we were both involved in writing all the code.
+
+We spent around 5 hours on part 1 and around 10 hours on part 2.
