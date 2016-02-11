@@ -295,9 +295,11 @@ public class HeapPage implements Page {
      * Returns true if associated slot on this page is filled.
      */
     public boolean isSlotUsed(int i) {
-        
+        System.out.println(i);
     	byte mask = (byte) (1 << (i%8));
-    	return (this.header[i/8] & mask)> 0;
+    	boolean used = (this.header[i/8] & mask)> 0;
+    	System.out.println(used);
+    	return used;
     			    
     }
 
