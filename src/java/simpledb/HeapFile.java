@@ -126,24 +126,76 @@ public class HeapFile implements DbFile {
 
     // see DbFile.java for javadocs
     public DbFileIterator iterator(TransactionId tid) {
+    	
+    	class HeapFileIterator implements DbFileIterator {
+    		
+    		private HeapPageId currentId;
+    		private TransactionId tid;
+    		private HeapPage currentPage;
+    		private int currentPageNum;
+    		private Iterator<Tuple> currentIterator;
+    		private boolean isClosed;
+    		
+    		public HeapFileIterator(TransactionId tid) {
+    			this.tid = tid;
+    		}
+    		
+    		public void open() {
+    			this.isClosed = false;
+    			this.currentId = new HeapPageId(getId(), 0);
+    			this.currentPageNum = 0;
+    			try {
+					this.currentPage = (HeapPage) Database.getBufferPool().getPage(tid, currentId, Permissions.READ_ONLY);
+				} catch (NoSuchElementException | TransactionAbortedException
+						| DbException | IOException e) {
+					e.printStackTrace();
+				}
+    			this.currentIterator = this.currentPage.iterator();
+    		}
+    		
+    		public boolean hasNext() {
+    			if (this.isClosed) {
+    				throw new NoSuchElementException();
+    			} else {
+    				return (this.currentIterator.hasNext() || this.currentPageNum < numPages()-1);	
+    			}
+    		}
 
-//    	Iterator<TransactionId> iter = new Iterator<TransactionId>() {
-//
-//    		private int currentIndex = 0;
-//    		private Page currentPage = this.readPage(pid);
-//
-//    		public boolean hasNext() {
-//    			return Database.getCatalog().getDatabaseFile(currentIndex)
-//    		}
-//
-//    		public Integer next() {
-//    			return BufferPool.
-//    		}
-//    	};
-//    	return iter;
-//    }
-//    	// How do we get page ids?
-    	return null;
+			@Override
+			public Tuple next() throws DbException,
+					TransactionAbortedException, NoSuchElementException {
+				if (this.isClosed) {
+					throw new NoSuchElementException();
+				} else if (this.currentIterator.hasNext()) {
+					return this.currentIterator.next();
+				} else {
+	    			this.currentPageNum++;
+	    			this.currentId = new HeapPageId(getId(), this.currentPageNum);
+	    			try {
+						this.currentPage = (HeapPage) Database.getBufferPool().getPage(tid, currentId, Permissions.READ_ONLY);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	    			this.currentIterator = this.currentPage.iterator();
+	    			
+	    			return this.currentIterator.next();
+				}
+			}
+
+			@Override
+			public void rewind() throws DbException,TransactionAbortedException {
+				if(!this.isClosed){
+					open();
+				}
+			}
+
+			@Override
+			public void close() {
+				this.isClosed = true;
+			}
+    	}
+
+    	return new HeapFileIterator(tid);
     }
     
 
