@@ -231,6 +231,9 @@ public class TupleDesc implements Serializable {
      * @return true if the object is equal to this TupleDesc.
      */
     public boolean equals(Object o) {
+    	if (!(o instanceof TupleDesc)) {
+    		return false;
+    	}
         if (this.numFields() != ((TupleDesc)o).numFields() || this.getSize() != ((TupleDesc)o).getSize()) {
         	return false;
         }
