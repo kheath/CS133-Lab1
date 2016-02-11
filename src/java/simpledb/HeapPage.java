@@ -323,6 +323,7 @@ public class HeapPage implements Page {
     				if (isSlotUsed(currentIndex)) {
     					return tuples[this.currentIndex++];
     				}
+    				++currentIndex;
     			}
     			throw new UnsupportedOperationException();
     		}
