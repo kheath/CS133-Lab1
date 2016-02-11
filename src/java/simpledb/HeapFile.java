@@ -135,21 +135,19 @@ public class HeapFile implements DbFile {
     		private int currentPageNum;
     		private Iterator<Tuple> currentIterator;
     		private boolean isClosed;
-    		
+    		    		
     		public HeapFileIterator(TransactionId tid) {
     			this.tid = tid;
+    			this.isClosed = true;
     		}
     		
-    		public void open() {
-    			boolean gotPage = false;
-    			
+    		public void open() {    			
     			this.isClosed = false;
-    			this.currentId = new HeapPageId(getId(), 0);
+       			this.currentId = new HeapPageId(getId(), 0);
     			this.currentPageNum = 0;
     			
 				try {
 					this.currentPage = (HeapPage) Database.getBufferPool().getPage(tid, currentId, Permissions.READ_ONLY);
-					gotPage = true;
 					System.out.println("Got page");
 				} catch (NoSuchElementException e) {
 					// TODO Auto-generated catch block
@@ -170,7 +168,7 @@ public class HeapFile implements DbFile {
     		
     		public boolean hasNext() {
     			if (this.isClosed) {
-    				throw new NoSuchElementException();
+    				return false;
     			} else {
     				return (this.currentIterator.hasNext() || this.currentPageNum < numPages()-1);	
     			}
