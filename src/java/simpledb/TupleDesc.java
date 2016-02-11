@@ -164,7 +164,9 @@ public class TupleDesc implements Serializable {
     	Iterator<TDItem> iter = this.iterator();
     	int i = 0;
     	while(iter.hasNext()){
-    		if(iter.next().fieldName.equals(name)){
+    		TDItem temp = iter.next();
+    		System.out.println(temp);
+    		if(temp.fieldName.equals(name)){
     			return i;
     		}
     		i++;
