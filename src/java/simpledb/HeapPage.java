@@ -278,6 +278,7 @@ public class HeapPage implements Page {
         
     	int count = 0;
     	for(int j = 0; j<this.getHeaderSize(); j++) {
+    		System.out.println("Header:");
     		System.out.println(header[j]);
     		for(int i = 0; i<8; i++) {
     			byte mask = (byte) Math.pow(2, i);
