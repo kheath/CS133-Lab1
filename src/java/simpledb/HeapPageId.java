@@ -49,7 +49,7 @@ public class HeapPageId implements PageId {
      *   ids are the same)
      */
     public boolean equals(Object o) {
-    	HeapPageId p = (HeapPageId) o;
+    	PageId p = (PageId) o;
         return ( pageNum == p.pageNumber() && tabId == p.getTableId());
     }
 
