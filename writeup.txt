@@ -6,4 +6,6 @@ We did not make any changes to the api.
 
 We pair programmed in the style recquired by CS 70, with one of us programming and the other guiding at any one time, splitting the time and implementation rather evenly.  While we don't remember exactly who wrote what, we were both involved in writing all the code.
 
+Our code for the first 5 parts works, but seqscan doesn't work and were not sure what's wrong.
+
 We spent around 5 hours on part 1 and around 10 hours on part 2.
