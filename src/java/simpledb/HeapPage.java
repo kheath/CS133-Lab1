@@ -283,10 +283,16 @@ public class HeapPage implements Page {
     			count += (this.header[j] & mask)/(Math.pow(2, i));
     		}
     	}
+    	System.out.println(Integer(numSlots).toString());
         return numSlots-count;
     }
 
-    /**
+    private Object Integer(int numSlots2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
      * Returns true if associated slot on this page is filled.
      */
     public boolean isSlotUsed(int i) {
