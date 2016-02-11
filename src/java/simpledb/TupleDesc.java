@@ -160,7 +160,9 @@ public class TupleDesc implements Serializable {
      *             if no field with a matching name is found.
      */
     public int fieldNameToIndex(String name) throws NoSuchElementException {
-        
+        if (name == null) {
+        	throw new NoSuchElementException();
+        }
     	Iterator<TDItem> iter = this.iterator();
     	int i = 0;
     	while(iter.hasNext()){
