@@ -162,7 +162,7 @@ public class HeapFile implements DbFile {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+				assert(currentPage != null);
     			this.currentIterator = this.currentPage.iterator();
     		}
     		
