@@ -277,7 +277,7 @@ public class HeapPage implements Page {
     public int getNumEmptySlots() {
         
     	int count = 0;
-    	for(int j = 0; j<this.header.length; j++) {
+    	for(int j = 0; j<this.getHeaderSize(); j++) {
     		for(int i = 0; i<8; i++) {
     			byte mask = (byte) Math.pow(2, i);
     			count += (this.header[j] & mask)/(Math.pow(2, i));

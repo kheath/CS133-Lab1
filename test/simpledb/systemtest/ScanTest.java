@@ -47,7 +47,7 @@ public class ScanTest extends SimpleDbTestBase {
     @Test public void testRewind() throws IOException, DbException, TransactionAbortedException {
         ArrayList<ArrayList<Integer>> tuples = new ArrayList<ArrayList<Integer>>();
         HeapFile f = SystemTestUtil.createRandomHeapFile(2, 1000, null, tuples);
-
+        // Is tuples supposed to be empty?
         TransactionId tid = new TransactionId();
         SeqScan scan = new SeqScan(tid, f.getId(), "table");
         scan.open();
