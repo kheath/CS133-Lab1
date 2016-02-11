@@ -94,8 +94,9 @@ public class SeqScan implements DbIterator {
      */
     public TupleDesc getTupleDesc() {
         // some code goes here
-    	
-    	return Database.getCatalog().getTupleDesc(this.tableid);
+    	TupleDesc retval = Database.getCatalog().getTupleDesc(this.tableid);
+    	assert(retval != null);
+    	return retval;
     }
 
     public boolean hasNext() throws TransactionAbortedException, DbException {
