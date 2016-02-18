@@ -80,10 +80,6 @@ public class BufferPool {
      */
     public  Page getPage(TransactionId tid, PageId pid, Permissions perm)
         throws TransactionAbortedException, DbException, NoSuchElementException, IOException {
-        
-//    	if (!holdsLock(tid, pid)) {
-//    		throw new TransactionAbortedException();
-//    	}
     	
     	if(this.deadPool.containsKey(pid)){
     		return this.deadPool.get(pid);	

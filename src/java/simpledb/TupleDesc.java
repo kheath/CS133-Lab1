@@ -170,7 +170,6 @@ public class TupleDesc implements Serializable {
     	int i = 0;
     	while(iter.hasNext()){
     		TDItem temp = iter.next();
-    		System.out.println(temp);
     		if(temp.fieldName == null) {
     			throw new NoSuchElementException();
     		}
